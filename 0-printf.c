@@ -17,14 +17,22 @@ int _printf(const char *format, ...)
 
 	va_start(arg_list, format);
 	if (format == NULL)
+	{
+		write(1, "", 1);
 		return (0);
+	}
 	while (*(format + i) != '\0')
 	{
 		if (*(format + i) == 'c' || *(format + i) == '%')
 		{
 			value = va_arg(arg_list, int);
-			write(1, &value, 1);
-			cmp++;
+			if (value == 0)
+				write(1, "", 1);
+			else
+			{
+				write(1, &value, 1);
+				cmp++;
+			}
 		}
 		else if (*(format + i) == 's')
 		{
