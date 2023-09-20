@@ -49,6 +49,7 @@ int _printf(const char *format, ...)
 {
 	va_list arg_list;
 	int cmp = 0, i = 0, value = 0;
+	char *string;
 
 	va_start(arg_list, format);
 	if (format == NULL || !*(format + 0))
@@ -71,7 +72,7 @@ int _printf(const char *format, ...)
 			}
 			else if (*(format + i) == 's')
 			{
-				char *string = va_arg(arg_list, char *);
+				string = va_arg(arg_list, char *);
 				value = _string(string);
 				cmp += value;
 			}
