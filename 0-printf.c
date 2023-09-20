@@ -9,7 +9,7 @@
  * Return: On success 1.
  * On error, -1 is returned, and errno is set appropriately.
  */
- 
+
 int _putchar(char c)
 {
 	return (write(1, &c, 1));
@@ -49,8 +49,6 @@ int _printf(const char *format, ...)
 {
 	va_list arg_list;
 	int cmp = 0, i = 0, value = 0;
-	char *string = NULL;
-
 
 	va_start(arg_list, format);
 	if (format == NULL || !*(format + 0))
@@ -73,14 +71,15 @@ int _printf(const char *format, ...)
 			}
 			else if (*(format + i) == 's')
 			{
-				string = va_arg(arg_list, char *);
+				char *string = va_arg(arg_list, char *);
 				value = _string(string);
 				cmp += value;
 			}
 				else
 				{
 					_putchar('%');
-					_putchar(*(format + i));
+					if (*(format + i))
+						_putchar(*(format + i));
 					cmp += 2;
 				}
 		}
