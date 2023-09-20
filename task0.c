@@ -40,6 +40,61 @@ int _string(char *str)
 }
 
 /**
+* numlen - calculates the lentgh of a number.
+* @num: the number given.
+* Return: the length.
+*/
+
+int numlen(int num)
+{
+	int length = 0;
+
+	while (num != 0) 
+	{
+		num /= 10;
+		length++;
+	}
+	return (length);
+}
+
+/**
+* _integer - handling with %d and %i.
+* @num: the giving integer.
+* Return: the number printed.
+*/
+
+int _integer(int num)
+{
+	char *str;
+	int len = 0, i;
+	if (num == 0)
+	{
+		_putchar('0');
+		return(1);
+	}
+
+	if (num < 0)
+	{
+		_putchar('-');
+		num = -num;
+	}
+	len = numlen(num);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
+		return (-1);
+
+	for (i = len - 1; i >= 0; i--)
+	{
+		str[i] = '0' + (num % 10);
+		num /= 10;
+	}
+	str[len] = '\0';
+	write(1, str, len);
+	free(str);
+	return (len);
+}
+
+/**
 * _printf - produces output according to a format.
 * @format: the format specifier.
 * Return: the number of characters printed.
@@ -71,6 +126,11 @@ int _printf(const char *format, ...)
 				value = _string(string);
 				cmp += value;
 			}
+				else if (*(format + i) == 'd' || *(format + i) == 'i')
+				{
+					value = va_arg(arg_list, int);
+					cmp += _integer(value);
+				}
 				else
 				{
 					_putchar('%');
