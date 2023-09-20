@@ -62,13 +62,8 @@ int _printf(const char *format, ...)
 			if (*(format + i) == 'c' || *(format + i) == '%')
 			{
 				value = va_arg(arg_list, int);
-				if (value == 0)
-					write(1, "", 1);
-				else
-				{
-					write(1, &value, 1);
-					cmp++;
-				}
+				write(1, &value, 1);
+				cmp++;
 			}
 			else if (*(format + i) == 's')
 			{
@@ -80,8 +75,10 @@ int _printf(const char *format, ...)
 				{
 					_putchar('%');
 					if (*(format + i))
+					{
 						_putchar(*(format + i));
-					cmp += 2;
+						cmp += 2;
+					}
 				}
 		}
 		else
